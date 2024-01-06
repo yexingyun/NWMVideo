@@ -854,11 +854,13 @@ async def startup_event():
         # 启动清理线程/Start cleaning thread
         thread_1 = threading.Thread(target=cleanup_path)
         thread_1.start()
-
+@app.route('/')
+def hello_world():
+    return 'Hello, Docker!'
 
 if __name__ == '__main__':
     # 建议使用gunicorn启动，使用uvicorn启动时请将debug设置为False
     # It is recommended to use gunicorn to start, when using uvicorn to start, please set debug to False
     # uvicorn web_api:app --host '0.0.0.0' --port 8000 --reload
-    # uvicorn.run("web_api:app", host='0.0.0.0', port=port, reload=True, access_log=False)
-    uvicorn.run("web_api:app", host='127.0.0.1', port=port, reload=True, access_log=False)
+    uvicorn.run("web_api:app", host='0.0.0.0', port=port, reload=True, access_log=False)
+    # uvicorn.run("web_api:app", host='127.0.0.1', port=port, reload=True, access_log=False)
