@@ -8,7 +8,7 @@ import uvicorn
 import zipfile
 import threading
 import configparser
-
+import asyncio
 from fastapi import FastAPI, Request
 from fastapi.responses import ORJSONResponse, FileResponse
 from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -864,29 +864,27 @@ def hello_worldtest():  # put application's code here
 @app.route('/api', methods=['GET'])
 async def hybrid_parsing():
     url = request.args.get('url')
-    # minimal = request.args.get('minimal', default=False, type=bool)
     minimal = request.args.get('minimal', default=True, type=bool)
 
     print("正在进行混合解析...")
-    # 开始时间
     start_time = time.time()
-    # 获取数据
-    data = await api.hybrid_parsing(url)
-    print("获取数据...")
-    print(data)
-    # 是否精简
-    if minimal:
-        result = await api.hybrid_parsing_minimal(data)
-    else:
-        # 更新数据
-        result = {
-            'url': url,
-            "endpoint": "/api/",
-            "total_time": float(format(time.time() - start_time, '.4f')),
-        }
-        # 合并数据
-        result.update(data)
-    # 记录API调用
+
+    async with app.test_request_context():  # 异步上下文管理器
+        # 获取数据
+        data = await api.hybrid_parsing(url)
+        print("获取数据...")
+        print(data)
+
+        if minimal:
+            result = await api.hybrid_parsing_minimal(data)
+        else:
+            result = {
+                'url': url,
+                "endpoint": "/api/",
+                "total_time": float(format(time.time() - start_time, '.4f')),
+            }
+            result.update(data)
+
     await api_logs(start_time=start_time, input_data={'url': url}, endpoint='api')
     return jsonify(result)
 
