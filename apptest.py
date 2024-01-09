@@ -866,7 +866,7 @@ def hello_worldtest():  # put application's code here
 def hybrid_parsing():
     url = request.args.get('url')
     # minimal = request.args.get('minimal', default=False, type=bool)
-    minimal = request.args.get('minimal', default=true, type=bool)
+    minimal = request.args.get('minimal', default=True, type=bool)
 
     print("正在进行混合解析...")
     # 开始时间
