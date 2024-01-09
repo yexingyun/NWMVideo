@@ -865,13 +865,15 @@ def hello_worldtest():  # put application's code here
 @app.route('/api', methods=['GET'])
 def hybrid_parsing():
     url = request.args.get('url')
-    minimal = request.args.get('minimal', default=False, type=bool)
+    # minimal = request.args.get('minimal', default=False, type=bool)
+    minimal = request.args.get('minimal', default=true, type=bool)
 
     print("正在进行混合解析...")
     # 开始时间
     start_time = time.time()
     # 获取数据
     data = api.hybrid_parsing(url)
+    print("获取数据..."+data)
     # 是否精简
     if minimal:
         result = api.hybrid_parsing_minimal(data)
