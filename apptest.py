@@ -568,7 +568,8 @@ async def get_tiktok_profile_liked_videos(tikhub_token: str, tiktok_video_url: s
     ## 参数/Parameter
     tikhub_token: https://api.tikhub.io/#/Authorization/login_for_access_token_user_login_post
     """
-    response = await api.get_tiktok_user_profile_liked_videos(tikhub_token=tikhub_token, tiktok_video_url=tiktok_video_url)
+    response = await api.get_tiktok_user_profile_liked_videos(tikhub_token=tikhub_token,
+                                                              tiktok_video_url=tiktok_video_url)
     return response
 
 
@@ -855,15 +856,13 @@ def hello_world():  # put application's code here
     return 'Hello World news !'
 
 
-
 @app.route('/test')
 def hello_worldtest():  # put application's code here
     return 'Hello World test!'
 
 
-
 @app.route('/api', methods=['GET'])
-def hybrid_parsing():
+async def hybrid_parsing():
     url = request.args.get('url')
     # minimal = request.args.get('minimal', default=False, type=bool)
     minimal = request.args.get('minimal', default=True, type=bool)
@@ -872,12 +871,12 @@ def hybrid_parsing():
     # 开始时间
     start_time = time.time()
     # 获取数据
-    data = api.hybrid_parsing(url)
+    data = await api.hybrid_parsing(url)
     print("获取数据...")
     print(data)
     # 是否精简
     if minimal:
-        result = api.hybrid_parsing_minimal(data)
+        result = await api.hybrid_parsing_minimal(data)
     else:
         # 更新数据
         result = {
@@ -888,10 +887,9 @@ def hybrid_parsing():
         # 合并数据
         result.update(data)
     # 记录API调用
-    api_logs(start_time=start_time, input_data={'url': url}, endpoint='api')
+    await api_logs(start_time=start_time, input_data={'url': url}, endpoint='api')
     return jsonify(result)
 
 
 if __name__ == '__main__':
     app.run()
-
