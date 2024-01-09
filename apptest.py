@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 
 import os
 import time
@@ -857,6 +857,34 @@ def hello_world():  # put application's code here
 @app.route('/test')
 def hello_world():  # put application's code here
     return 'Hello World news test!'
+
+
+
+@app.route('/api', methods=['GET'])
+def hybrid_parsing():
+    url = request.args.get('url')
+    minimal = request.args.get('minimal', default=False, type=bool)
+
+    print("正在进行混合解析...")
+    # 开始时间
+    start_time = time.time()
+    # 获取数据
+    data = api.hybrid_parsing(url)
+    # 是否精简
+    if minimal:
+        result = api.hybrid_parsing_minimal(data)
+    else:
+        # 更新数据
+        result = {
+            'url': url,
+            "endpoint": "/api/",
+            "total_time": float(format(time.time() - start_time, '.4f')),
+        }
+        # 合并数据
+        result.update(data)
+    # 记录API调用
+    api_logs(start_time=start_time, input_data={'url': url}, endpoint='api')
+    return jsonify(result)
 
 
 if __name__ == '__main__':
