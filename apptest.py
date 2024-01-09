@@ -873,7 +873,8 @@ def hybrid_parsing():
     start_time = time.time()
     # 获取数据
     data = api.hybrid_parsing(url)
-    print("获取数据..."+data)
+    print("获取数据...")
+    print(data)
     # 是否精简
     if minimal:
         result = api.hybrid_parsing_minimal(data)
