@@ -859,6 +859,11 @@ def hello_world():  # put application's code here
     return 'Hello World news test!'
 
 
+@app.route('/test')
+def hello_worldtest():  # put application's code here
+    return 'Hello World test!'
+
+
 
 @app.route('/api', methods=['GET'])
 def hybrid_parsing():
