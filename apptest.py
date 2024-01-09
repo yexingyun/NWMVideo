@@ -854,9 +854,6 @@ app = Flask(__name__)
 def hello_world():  # put application's code here
     return 'Hello World news !'
 
-@app.route('/test')
-def hello_world():  # put application's code here
-    return 'Hello World news test!'
 
 
 @app.route('/test')
