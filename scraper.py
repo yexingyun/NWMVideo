@@ -908,13 +908,17 @@ class Scraper:
                 'platform': data.get('platform'),
                 'type': data.get('type'),
                 'desc': data.get('desc'),
-                'wm_video_url': data['video_data']['wm_video_url'] if data['type'] == 'video' else None,
-                'wm_video_url_HQ': data['video_data']['wm_video_url_HQ'] if data['type'] == 'video' else None,
-                'nwm_video_url': data['video_data']['nwm_video_url'] if data['type'] == 'video' else None,
-                'nwm_video_url_HQ': data['video_data']['nwm_video_url_HQ'] if data['type'] == 'video' else None,
-                'no_watermark_image_list': data['image_data']['no_watermark_image_list'] if data[
-                                                                                                'type'] == 'image' else None,
-                'watermark_image_list': data['image_data']['watermark_image_list'] if data['type'] == 'image' else None
+                'video_url': data.get('video_url'),
+                'wm_video_url': data.get('video_data', {}).get('wm_video_url') if data['type'] == 'video' else None,
+                'wm_video_url_HQ': data.get('video_data', {}).get('wm_video_url_HQ') if data[
+                                                                                            'type'] == 'video' else None,
+                'nwm_video_url': data.get('video_data', {}).get('nwm_video_url') if data['type'] == 'video' else None,
+                'nwm_video_url_HQ': data.get('video_data', {}).get('nwm_video_url_HQ') if data[
+                                                                                              'type'] == 'video' else None,
+                'no_watermark_image_list': data.get('image_data', {}).get('no_watermark_image_list') if data[
+                                                                                                            'type'] == 'image' else None,
+                'watermark_image_list': data.get('image_data', {}).get('watermark_image_list') if data[
+                                                                                                      'type'] == 'image' else None
             }
             return result
         else:

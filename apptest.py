@@ -876,8 +876,8 @@ def hybrid_parsing():
     print(data)
     # 是否精简
     if minimal:
-        # result = api.hybrid_parsing_minimal(data)
-        result = asyncio.run(api.hybrid_parsing_minimal(data))
+        result = api.hybrid_parsing_minimal(data)
+        # result = asyncio.run(api.hybrid_parsing_minimal(data))
     else:
         # 更新数据
         result = {
@@ -889,7 +889,8 @@ def hybrid_parsing():
         result.update(data)
     # 记录API调用
     # asyncio.run(api_logs(start_time=start_time, input_data={'url': url}, endpoint='api'))
-    return jsonify(result)
+    backdate = jsonify(result)
+    return backdate
 
 
 if __name__ == '__main__':
