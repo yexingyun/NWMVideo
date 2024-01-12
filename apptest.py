@@ -858,7 +858,7 @@ def hello_world():  # put application's code here
 
 @app.route('/test')
 def hello_worldtest():  # put application's code here
-    return 'Hello World test!'
+    return 'Hello World test! that is new 1.11'
 
 
 @app.route('/api', methods=['GET'])
