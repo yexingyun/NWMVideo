@@ -251,7 +251,7 @@ async def hybrid_parsing(request: Request, url: str, minimal: bool = False):
         - 用户当个视频数据的列表，列表内包含JSON数据。
         - List of user single video data, list contains JSON data.
     """
-    print("正在进行混合解析...")
+    print("正在进行混合解析...async")
     # 开始时间
     start_time = time.time()
     # 获取数据
@@ -867,7 +867,7 @@ def hybrid_parsing():
     # minimal = request.args.get('minimal', default=False, type=bool)
     minimal = request.args.get('minimal', default=True, type=bool)
 
-    print("正在进行混合解析...")
+    print("正在进行混合解析...333")
     # 开始时间
     start_time = time.time()
     # 获取数据
